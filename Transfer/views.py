@@ -6,21 +6,35 @@ from .models import Account
 from .serializers import *
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
-
+from rest_framework.versioning import URLPathVersioning
 # Create your views here.
 
-class AccountCreateSerializer(generics.ListCreateAPIView):
-    pass
+class AccountCreateListAPIView(generics.ListCreateAPIView):
+    serializer_class = AccountSerializer
+    queryset = Account.objects.all()
+
 
 
 class TransferAPIView(APIView):
     serializer_class = TransferSerializer
+    versioning_class = URLPathVersioning
+
     @csrf_exempt
     def post(self, request, **kwargs):
-        serializer = TransferSerializer(data= request.data)
+        TransferSerializerChoice = self.get_serializer_class()
+        serializer = TransferSerializerChoice(data= request.data, context={"request":request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(data= serializer.data, status=status.HTTP_200_OK)
+
+    def get_serializer_class(self):
+        print(self.request.version)
+        if self.request.version == 'v1':
+
+            return TransferSerializer
+        return TransferSerializerWithError
+
+        
 
 
 

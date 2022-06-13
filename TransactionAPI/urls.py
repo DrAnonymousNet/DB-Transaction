@@ -14,10 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from Transfer.views import TransferAPIView
+from django.urls import path, re_path
+from Transfer.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/transfer/', TransferAPIView.as_view())
+    path("accounts/", AccountCreateListAPIView.as_view()),
+    re_path(r'^(?P<version>(v1|v2))/accounts/transfer/$', TransferAPIView.as_view())
 ]
