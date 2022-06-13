@@ -14,7 +14,7 @@ class Account(models.Model):
     def __str__(self) -> str:
         return f"{self.account_num}"
 
-    def get_account_num(self) -> float:
+    def get_balance(self) -> float:
         return self.balance
 
 

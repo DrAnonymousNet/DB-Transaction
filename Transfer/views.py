@@ -6,7 +6,7 @@ from .models import Account
 from .serializers import *
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.versioning import URLPathVersioning
+from rest_framework.versioning import NamespaceVersioning
 # Create your views here.
 
 class AccountCreateListAPIView(generics.ListCreateAPIView):
@@ -17,7 +17,7 @@ class AccountCreateListAPIView(generics.ListCreateAPIView):
 
 class TransferAPIView(APIView):
     serializer_class = TransferSerializer
-    versioning_class = URLPathVersioning
+    versioning_class = NamespaceVersioning
 
     @csrf_exempt
     def post(self, request, **kwargs):
