@@ -16,7 +16,7 @@ class TransferSerializer(serializers.Serializer):
 
     
     def save(self):
-        print("Hello World")
+        
         try:
             with transaction.atomic():
                 account_num= self.validated_data.get("from_account")
@@ -25,7 +25,6 @@ class TransferSerializer(serializers.Serializer):
                 #The LOGIC here was INTENTIONAL
                 if from_account.get_balance() >= amount:
                     from_account.balance -= amount
-                    print("Hello")
                     from_account.save()
 
                 #Intentionally queried the for account here
