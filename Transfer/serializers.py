@@ -19,7 +19,8 @@ class TransferSerializer(serializers.Serializer):
         print("Hello World")
         try:
             with transaction.atomic():
-                from_account = Account.objects.get(account_num = self.validated_data.get("from_account"))
+                account_num= self.validated_data.get("from_account")
+                from_account = Account.objects.get(account_num=account_num)
                 amount = self.validated_data.get("amount")
                 #The LOGIC here was INTENTIONAL
                 if from_account.get_balance() >= amount:
@@ -29,7 +30,8 @@ class TransferSerializer(serializers.Serializer):
 
                 #Intentionally queried the for account here
                 print(self.validated_data.get("to_account"))
-                to_account = Account.objects.get(account_num=self.validated_data.get("to_account"))
+                account_num= self.validated_data.get("to_account")
+                to_account = Account.objects.get(account_num=account_num)
                 to_account.balance += amount
                 to_account.save()
         except Exception as e:
@@ -44,15 +46,14 @@ class TransferSerializerWithError(serializers.Serializer):
 
 
     def save(self):
-        print("Eror")
-
-        from_account = Account.objects.get(account_num=self.validated_data.get("from_account"))
+        account_num= self.validated_data.get("from_account")
+        from_account = Account.objects.get(account_num=account_num)
         amount = self.validated_data.get("amount")
         #The LOGIC here was INTENTIONAL
         try:
             if from_account.balance >= amount:
                 from_account.balance -= amount
-                print("Hello")
+                
                 from_account.save()
 
             #Intentionally queried the to account here
