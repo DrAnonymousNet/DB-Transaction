@@ -9,6 +9,36 @@ In the other serializer, No Atomic transaction is enable. Any error generated du
 
 ## Installation
 
+1. Clone the Repository
+
+2. Ceate a virtual environment:
+
+```
+$ python3 -m venv venv
+```
+
+3. Activate Virtual Environment
+```
+$ source venv/bin/activate
+```
+
+4. Install the Required Packages
+
+```
+$ pip install -r requirements.txt
+```
+
+5. Change directory into the `DB-Transaction/TransactionAPI`
+
+6. Run `python manage.py makemigrations` and then `python manage.py migrate` 
+
+7. Run the development server
+
+```
+$ python manage.py runserver
+```
+
+
 
 
 ## ENDPOINTS
