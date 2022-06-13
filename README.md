@@ -38,7 +38,9 @@ $ pip install -r requirements.txt
 $ python manage.py runserver
 ```
 
+## Test
 
+> python manage.py test
 
 
 ## ENDPOINTS
