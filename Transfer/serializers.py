@@ -28,7 +28,6 @@ class TransferSerializer(serializers.Serializer):
                     from_account.save()
 
                 #Intentionally queried the for account here
-                print(self.validated_data.get("to_account"))
                 account_num= self.validated_data.get("to_account")
                 to_account = Account.objects.get(account_num=account_num)
                 to_account.balance += amount
@@ -56,8 +55,8 @@ class TransferSerializerWithError(serializers.Serializer):
                 from_account.save()
 
             #Intentionally queried the to account here
-
-            to_account = Account.objects.get(account_num=self.validated_data.get("to_account"))
+            account_num= self.validated_data.get("to_account")
+            to_account = Account.objects.get(account_num=account_num)
             to_account.balance += amount
             to_account.save()
         except Exception as e:
